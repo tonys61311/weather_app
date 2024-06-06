@@ -21,6 +21,10 @@ class WeatherNotifier extends StateNotifier<WeatherState> {
   final ApiService _apiService = ApiService();
 
   Future<void> getWeather(String locationName) async {
+    // 防止在加載狀態下再次搜尋
+    if (state is _Loading) {
+      return;
+    }
     if (_cache.containsKey(locationName)) {
       state = WeatherState.data(_cache[locationName]!);
       return;
@@ -34,6 +38,10 @@ class WeatherNotifier extends StateNotifier<WeatherState> {
       });
       if (response.statusCode == 200) {
         final weather = WeatherModel.fromJson(response.data['records']);
+        if(weather.location.isEmpty) {
+          state = WeatherState.error('無此城市之天氣資料');
+          return;
+        }
         _cache[locationName] = weather;
         state = WeatherState.data(weather);
       } else {

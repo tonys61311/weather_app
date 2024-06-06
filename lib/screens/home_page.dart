@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_app/utils/api_service.dart';
-import 'package:weather_app/widgets/loading_widget.dart';
-import 'package:weather_app/widgets/weather_widget.dart';
-import 'package:weather_app/widgets/error_widget.dart';
-import 'package:weather_app/widgets/initial_widget.dart';
+import 'package:weather_app/screens/loading_widget.dart';
+import 'package:weather_app/screens/weather_widget.dart';
+import 'package:weather_app/screens/error_widget.dart';
+import 'package:weather_app/screens/initial_widget.dart';
 import 'package:weather_app/providers/weather/weather_provider.dart';
 
 class HomePage extends ConsumerWidget {
