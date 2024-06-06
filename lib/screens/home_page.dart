@@ -5,6 +5,7 @@ import 'package:weather_app/screens/weather_widget.dart';
 import 'package:weather_app/screens/error_widget.dart';
 import 'package:weather_app/screens/initial_widget.dart';
 import 'package:weather_app/providers/weather/weather_provider.dart';
+import 'package:weather_app/widgets/custom_text_field.dart';
 
 class HomePage extends ConsumerWidget {
   final TextEditingController _controller = TextEditingController();
@@ -14,51 +15,55 @@ class HomePage extends ConsumerWidget {
     final weatherState = ref.watch(weatherProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Weather App'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+      backgroundColor: Colors.grey[850],
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        bottom: false,
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomTextField(
+                        controller: _controller,
+                        labelText: '請輸入城市名稱',
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () async {
+                        ref.read(weatherProvider.notifier).getWeather(_controller.text);
+                      },
+                      child: Text('確認'),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
                 Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      labelText: '請輸入城市名稱',
-                      border: OutlineInputBorder(),
+                  child: Container(
+                    // decoration: BoxDecoration(
+                    //   border: Border.all(color: Colors.grey),
+                    // ),
+                    child: Center(
+                      child: weatherState.when(
+                        initial: () => InitialWidget(),
+                        loading: () => LoadingWidget(),
+                        data: (weather) => WeatherWidget(weather: weather),
+                        error: (error) => ErrorDisplayWidget(message: error),
+                      ),
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () async{
-                    ref.read(weatherProvider.notifier).getWeather(_controller.text);
-                  },
-                  child: Text('確認'),
-                ),
               ],
             ),
-            SizedBox(height: 20),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                ),
-                child: Center(
-                  child: weatherState.when(
-                    initial: () => InitialWidget(),
-                    loading: () => LoadingWidget(),
-                    data: (weather) => WeatherWidget(weather: weather),
-                    error: (error) => ErrorDisplayWidget(message: error),
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

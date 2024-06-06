@@ -11,8 +11,9 @@ class InitialWidget extends ConsumerWidget {
     final taiwanCities = TaiwanCity.values;
 
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.zero, // 移除额外的 padding
       child: GridView.builder(
+        padding: EdgeInsets.zero,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 10,
