@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_app/enums/taiwanCity.dart';
+import 'package:weather_app/enums/taiwan_city.dart';
 import 'package:weather_app/providers/weather/weather_provider.dart';
 import 'package:weather_app/widgets/city_widget.dart';
 

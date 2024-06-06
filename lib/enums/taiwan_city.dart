@@ -76,6 +76,6 @@ extension TaiwanCityExtension on TaiwanCity {
   }
 
   String get imgPath {
-    return 'assets/images/${this.name}.jpeg';
+    return 'assets/images/city/${this.name}.jpeg';
   }
 }

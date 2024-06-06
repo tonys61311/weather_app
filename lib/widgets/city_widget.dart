@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/enums/taiwanCity.dart';
+import 'package:weather_app/enums/taiwan_city.dart';
 
 class CityWidget extends StatelessWidget {
   final TaiwanCity city;

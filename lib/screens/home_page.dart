@@ -55,7 +55,7 @@ class HomePage extends ConsumerWidget {
                       child: weatherState.when(
                         initial: () => InitialWidget(),
                         loading: () => LoadingWidget(),
-                        data: (weather) => WeatherWidget(weather: weather),
+                        data: (weather) => WeatherWidget(weatherModel: weather),
                         error: (error) => ErrorDisplayWidget(message: error),
                       ),
                     ),
