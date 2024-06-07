@@ -22,19 +22,26 @@ extension WidgetExtension on Widget {
   }
 
   Widget addGreyBox(
-      {AlignmentGeometry? alignment,
-        EdgeInsetsGeometry padding = EdgeInsets.zero,
+      {EdgeInsetsGeometry padding = const EdgeInsets.all(16),
         EdgeInsetsGeometry margin = EdgeInsets.zero,
         Decoration? decoration,
         double? width,
-        double? height,
-        Color? color}) {
+        double? height,}) {
     return this.addContainer(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[900],
-        borderRadius: BorderRadius.circular(20),
-      ),
+      padding: padding,
+      decoration: decoration ??
+          BoxDecoration(
+            color: Colors.grey[900],
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.5),
+                spreadRadius: 0.5,
+                blurRadius: 5,
+                offset: Offset(0, 3),
+              ),
+            ],
+          ),
     );
   }
 

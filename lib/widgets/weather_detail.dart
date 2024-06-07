@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_app/utils/WidgetExtension.dart';
 
 class WeatherDetail extends StatelessWidget {
   final String title;

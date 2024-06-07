@@ -7,11 +7,16 @@ import 'package:weather_app/screens/initial_widget.dart';
 import 'package:weather_app/providers/weather/weather_provider.dart';
 import 'package:weather_app/widgets/custom_text_field.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
   final TextEditingController _controller = TextEditingController();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final weatherState = ref.watch(weatherProvider);
 
     return Scaffold(
@@ -48,9 +53,6 @@ class HomePage extends ConsumerWidget {
                 SizedBox(height: 10),
                 Expanded(
                   child: Container(
-                    // decoration: BoxDecoration(
-                    //   border: Border.all(color: Colors.grey),
-                    // ),
                     child: Center(
                       child: weatherState.when(
                         initial: () => InitialWidget(),

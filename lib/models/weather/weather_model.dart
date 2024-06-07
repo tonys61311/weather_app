@@ -39,7 +39,6 @@ class WeatherModel with _$WeatherModel {
         }
       }
     }
-AppLog(timeWeatherMap.values.toList().length);
     return timeWeatherMap.values.toList();
   }
 
