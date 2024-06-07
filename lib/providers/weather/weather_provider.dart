@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:weather_app/enums/taiwan_city.dart';
 import 'package:weather_app/models/weather/weather_model.dart';
 import 'package:weather_app/utils/api_service.dart';
 import 'package:weather_app/utils/appLog.dart';
@@ -20,18 +21,28 @@ class WeatherNotifier extends StateNotifier<WeatherState> {
 
   final Map<String, WeatherModel> _cache = {};
   final ApiService _apiService = ApiService();
+  final now = DateTime.now();
 
   Future<void> getWeather(String locationName) async {
-    if (_cache.containsKey(locationName)) {
-      state = WeatherState.data(_cache[locationName]!);
-      return;
-    }
-
-    state = const WeatherState.loading();
 
     try {
+      if (_cache.containsKey(locationName)) {
+        final startTime = DateTime.parse(_cache[locationName]!.location.first.weatherElement.first.time.first.startTime);
+        if (now.difference(startTime).inHours < 6) {
+          state = WeatherState.data(_cache[locationName]!);
+          return;
+        }
+      }
+
+      if(!TaiwanCityExtension.isDisplayNameDefined(locationName)) {
+        state = WeatherState.error('無此城市之天氣資料');
+        return;
+      }
+
+      state = const WeatherState.loading();
+
       final response = await _apiService.dio.get('/F-C0032-001', queryParameters: {
-        'locationName': locationName.isEmpty ? '臺北市' : locationName,
+        'locationName': locationName,
       });
 
       if (response.statusCode == 200) {
@@ -56,6 +67,10 @@ class WeatherNotifier extends StateNotifier<WeatherState> {
     } catch (e) {
       state = WeatherState.error(e.toString());
     }
+  }
+
+  void goToInitialWidget() {
+    state = const WeatherState.initial();
   }
 }
 

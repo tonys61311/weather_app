@@ -78,4 +78,8 @@ extension TaiwanCityExtension on TaiwanCity {
   String get imgPath {
     return 'assets/images/city/${this.name}.jpeg';
   }
+
+  static bool isDisplayNameDefined(String displayName) {
+    return TaiwanCity.values.any((city) => city.displayName == displayName);
+  }
 }

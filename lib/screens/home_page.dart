@@ -58,7 +58,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                         initial: () => InitialWidget(),
                         loading: () => LoadingWidget(),
                         data: (weather) => WeatherWidget(weatherModel: weather),
-                        error: (error) => ErrorDisplayWidget(message: error),
+                        error: (error) => ErrorDisplayWidget(
+                            message: error,
+                            clickButton: () {
+                              ref.read(weatherProvider.notifier).goToInitialWidget();
+                            }
+                        ),
                       ),
                     ),
                   ),

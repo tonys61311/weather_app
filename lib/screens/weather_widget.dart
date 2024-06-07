@@ -18,9 +18,6 @@ class WeatherWidget extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    weatherList.forEach((element) {
-      AppLog(element.startTime);
-    });
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
