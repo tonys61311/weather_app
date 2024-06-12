@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 enum TaiwanCity {
   taipeiCity,  // 臺北市
   newTaipeiCity,  // 新北市
@@ -79,7 +81,9 @@ extension TaiwanCityExtension on TaiwanCity {
     return 'assets/images/city/${this.name}.jpeg';
   }
 
-  static bool isDisplayNameDefined(String displayName) {
-    return TaiwanCity.values.any((city) => city.displayName == displayName);
+  static TaiwanCity? fromDisplayName(String displayName) {
+    return TaiwanCity.values.firstWhereOrNull(
+          (city) => city.displayName == displayName
+    );
   }
 }

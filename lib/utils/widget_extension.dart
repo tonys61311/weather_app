@@ -24,14 +24,12 @@ extension WidgetExtension on Widget {
   Widget addGreyBox(
       {EdgeInsetsGeometry padding = const EdgeInsets.all(16),
         EdgeInsetsGeometry margin = EdgeInsets.zero,
-        Decoration? decoration,
-        double? width,
-        double? height,}) {
+        Decoration? decoration,}) {
     return this.addContainer(
       padding: padding,
       decoration: decoration ??
           BoxDecoration(
-            color: Colors.grey[900],
+            color: Colors.grey[900]!.withOpacity(0.85),
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(

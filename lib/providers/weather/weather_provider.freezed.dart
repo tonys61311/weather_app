@@ -20,7 +20,7 @@ mixin _$WeatherState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(WeatherModel weather) data,
+    required TResult Function(WeatherModel weather, TaiwanCity city) data,
     required TResult Function(String error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$WeatherState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(WeatherModel weather)? data,
+    TResult? Function(WeatherModel weather, TaiwanCity city)? data,
     TResult? Function(String error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$WeatherState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(WeatherModel weather)? data,
+    TResult Function(WeatherModel weather, TaiwanCity city)? data,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) =>
@@ -125,7 +125,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(WeatherModel weather) data,
+    required TResult Function(WeatherModel weather, TaiwanCity city) data,
     required TResult Function(String error) error,
   }) {
     return initial();
@@ -136,7 +136,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(WeatherModel weather)? data,
+    TResult? Function(WeatherModel weather, TaiwanCity city)? data,
     TResult? Function(String error)? error,
   }) {
     return initial?.call();
@@ -147,7 +147,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(WeatherModel weather)? data,
+    TResult Function(WeatherModel weather, TaiwanCity city)? data,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -238,7 +238,7 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(WeatherModel weather) data,
+    required TResult Function(WeatherModel weather, TaiwanCity city) data,
     required TResult Function(String error) error,
   }) {
     return loading();
@@ -249,7 +249,7 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(WeatherModel weather)? data,
+    TResult? Function(WeatherModel weather, TaiwanCity city)? data,
     TResult? Function(String error)? error,
   }) {
     return loading?.call();
@@ -260,7 +260,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(WeatherModel weather)? data,
+    TResult Function(WeatherModel weather, TaiwanCity city)? data,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -317,7 +317,7 @@ abstract class _$$_DataCopyWith<$Res> {
   factory _$$_DataCopyWith(_$_Data value, $Res Function(_$_Data) then) =
       __$$_DataCopyWithImpl<$Res>;
   @useResult
-  $Res call({WeatherModel weather});
+  $Res call({WeatherModel weather, TaiwanCity city});
 
   $WeatherModelCopyWith<$Res> get weather;
 }
@@ -333,12 +333,17 @@ class __$$_DataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? weather = null,
+    Object? city = null,
   }) {
     return _then(_$_Data(
       null == weather
           ? _value.weather
           : weather // ignore: cast_nullable_to_non_nullable
               as WeatherModel,
+      null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as TaiwanCity,
     ));
   }
 
@@ -354,14 +359,16 @@ class __$$_DataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Data implements _Data {
-  const _$_Data(this.weather);
+  const _$_Data(this.weather, this.city);
 
   @override
   final WeatherModel weather;
+  @override
+  final TaiwanCity city;
 
   @override
   String toString() {
-    return 'WeatherState.data(weather: $weather)';
+    return 'WeatherState.data(weather: $weather, city: $city)';
   }
 
   @override
@@ -369,11 +376,12 @@ class _$_Data implements _Data {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Data &&
-            (identical(other.weather, weather) || other.weather == weather));
+            (identical(other.weather, weather) || other.weather == weather) &&
+            (identical(other.city, city) || other.city == city));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, weather);
+  int get hashCode => Object.hash(runtimeType, weather, city);
 
   @JsonKey(ignore: true)
   @override
@@ -386,10 +394,10 @@ class _$_Data implements _Data {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(WeatherModel weather) data,
+    required TResult Function(WeatherModel weather, TaiwanCity city) data,
     required TResult Function(String error) error,
   }) {
-    return data(weather);
+    return data(weather, city);
   }
 
   @override
@@ -397,10 +405,10 @@ class _$_Data implements _Data {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(WeatherModel weather)? data,
+    TResult? Function(WeatherModel weather, TaiwanCity city)? data,
     TResult? Function(String error)? error,
   }) {
-    return data?.call(weather);
+    return data?.call(weather, city);
   }
 
   @override
@@ -408,12 +416,12 @@ class _$_Data implements _Data {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(WeatherModel weather)? data,
+    TResult Function(WeatherModel weather, TaiwanCity city)? data,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(weather);
+      return data(weather, city);
     }
     return orElse();
   }
@@ -457,9 +465,11 @@ class _$_Data implements _Data {
 }
 
 abstract class _Data implements WeatherState {
-  const factory _Data(final WeatherModel weather) = _$_Data;
+  const factory _Data(final WeatherModel weather, final TaiwanCity city) =
+      _$_Data;
 
   WeatherModel get weather;
+  TaiwanCity get city;
   @JsonKey(ignore: true)
   _$$_DataCopyWith<_$_Data> get copyWith => throw _privateConstructorUsedError;
 }
@@ -528,7 +538,7 @@ class _$_Error implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(WeatherModel weather) data,
+    required TResult Function(WeatherModel weather, TaiwanCity city) data,
     required TResult Function(String error) error,
   }) {
     return error(this.error);
@@ -539,7 +549,7 @@ class _$_Error implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(WeatherModel weather)? data,
+    TResult? Function(WeatherModel weather, TaiwanCity city)? data,
     TResult? Function(String error)? error,
   }) {
     return error?.call(this.error);
@@ -550,7 +560,7 @@ class _$_Error implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(WeatherModel weather)? data,
+    TResult Function(WeatherModel weather, TaiwanCity city)? data,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {

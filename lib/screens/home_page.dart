@@ -54,15 +54,22 @@ class _HomePageState extends ConsumerState<HomePage> {
                 Expanded(
                   child: Container(
                     child: Center(
-                      child: weatherState.when(
-                        initial: () => InitialWidget(),
-                        loading: () => LoadingWidget(),
-                        data: (weather) => WeatherWidget(weatherModel: weather),
-                        error: (error) => ErrorDisplayWidget(
-                            message: error,
-                            clickButton: () {
-                              ref.read(weatherProvider.notifier).goToInitialWidget();
-                            }
+                      //Add transition animations between each widget
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 500),
+                        transitionBuilder: (Widget child, Animation<double> animation) {
+                          return FadeTransition(opacity: animation, child: child);
+                        },
+                        child: weatherState.when(
+                          initial: () => InitialWidget(),
+                          loading: () => LoadingWidget(),
+                          data: (weather, city) => WeatherWidget(weatherModel: weather, city: city),
+                          error: (error) => ErrorDisplayWidget(
+                              message: error,
+                              clickButton: () {
+                                ref.read(weatherProvider.notifier).goToInitialWidget();
+                              }
+                          ),
                         ),
                       ),
                     ),

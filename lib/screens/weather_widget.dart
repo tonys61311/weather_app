@@ -2,33 +2,46 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/enums/taiwan_city.dart';
 import 'package:weather_app/enums/weather_type.dart';
 import 'package:weather_app/models/time_weather/time_weather.dart';
 import 'package:weather_app/models/weather/weather_model.dart';
 import 'package:weather_app/utils/widget_extension.dart';
-import 'package:weather_app/utils/appLog.dart';
 import 'package:weather_app/widgets/weather_detail.dart';
 
 class WeatherWidget extends StatelessWidget {
   final WeatherModel weatherModel;
+  final TaiwanCity city;
   late final List<TimeWeather> weatherList;
 
-  WeatherWidget({required this.weatherModel, Key? key}) : super(key: key) {
+  WeatherWidget({required this.weatherModel, required this.city, Key? key}) : super(key: key) {
     weatherList = weatherModel.toTimeWeather();
   }
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          Expanded(flex: 3, child: _buildCurrentWeather()),
-          SizedBox(height: 20),
-          _buildForecast(),
-          SizedBox(height: 20),
-          Expanded(flex: 4, child: _buildRainChanceChart()),
-        ],
-      ),
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(city.imgPath),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Expanded(flex: 3, child: _buildCurrentWeather()),
+              SizedBox(height: 20),
+              _buildForecast(),
+              SizedBox(height: 20),
+              Expanded(flex: 4, child: _buildRainChanceChart()),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
